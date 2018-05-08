@@ -7,6 +7,7 @@ from twitch.twitch_processor import TwitchProcessor
 
 
 def get_twitch():
+    # test skafos sdk
     if 'CLIENT_ID' in os.environ:
         api_key = os.environ['CLIENT_ID']
     else:
