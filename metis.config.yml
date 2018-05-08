@@ -1,8 +1,8 @@
 project_token: 472e3e2fc9e06c57bde1023e
-name: youtube-social-ingest
+name: twitch-social-ingest
 project_tasks:
     - project_task_id: "f41b4cd0-4196-4b04-a488-ef990e946dea"
-      name: youtube-social-ingest
+      name: twitch-social-ingest
       language: python
       entrypoint: main.py
 
