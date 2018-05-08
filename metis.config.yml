@@ -1,0 +1,7 @@
+project_token: 472e3e2fc9e06c57bde1023e
+name: twitch-social-ingest
+jobs: 
+  - job_id: f41b4cd0-4196-4b04-a488-ef990e946dea
+    language: python
+    name: Main
+    entrypoint: "main.py"
