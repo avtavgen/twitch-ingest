@@ -12,9 +12,11 @@ ska = Skafos()
 ingest_log = get_logger('user-fetch')
 
 if __name__ == "__main__":
+    ingest_log.info('Starting job')
     if 'CLIENT_ID' in os.environ:
         api_key = os.environ['CLIENT_ID']
     else:
+        ingest_log.info('Setting up api key')
         api_key = 'rzyu2ma6hklfiw6i1yjvq0oiqhop0v'
         # sys.exit('Please save a Twitch api key in your environment.')
 
@@ -23,6 +25,7 @@ if __name__ == "__main__":
     else:
         cnt = 500
 
+    ingest_log.info('Fetching user data')
     processor = TwitchProcessor(api_key, ingest_log, min_viewer_count=cnt).fetch()
     ti = SocialStatements(processor.info)
     ti.save(ska.engine)
