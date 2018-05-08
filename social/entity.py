@@ -29,7 +29,7 @@ class SocialStatements:
         }
     }
 
-    def save(self, engine=None, logging_name='social ingest', batch_size=100):
+    def save(self, engine, logging_name='social ingest', batch_size=100):
         """Write these social statements to the data engine in the appropriate manner"""
         logger = helpers.get_logger(logging_name)
         if self.users:
