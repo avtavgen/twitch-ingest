@@ -1,2 +1,2 @@
-skafossdk>=0.0.8
+skafossdk==1.0.0
 requests==2.18.4

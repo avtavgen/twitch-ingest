@@ -4,4 +4,4 @@ jobs:
   - job_id: f41b4cd0-4196-4b04-a488-ef990e946dea
     language: python
     name: Main 
-    entrypoint: main.py
+    entrypoint: "main.py"
