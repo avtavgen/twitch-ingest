@@ -89,7 +89,7 @@ class TwitchProcessor(object):
             user_data["followers"] = user_follows["total"]
             user_data["videos"] = user_videos
             self.info.append(user_data)
-            sleep(3)
+            sleep(5)
 
     def fetch(self):
         self.log.info('Making request to Twitch for daily streams export')
