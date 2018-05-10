@@ -6,7 +6,7 @@ from skafossdk import *
 from twitch.twitch_processor import TwitchProcessor
 
 
-# Initialize the skafos sdk aa
+# Initialize the skafos sdk
 ska = Skafos()
 
 ingest_log = get_logger('user-fetch')
