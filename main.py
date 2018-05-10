@@ -2,7 +2,7 @@ import os
 import sys
 from social.entity import SocialStatements
 from helpers.logger import get_logger
-import skafossdk as Skafos
+from skafossdk import *
 from twitch.twitch_processor import TwitchProcessor
 
 
