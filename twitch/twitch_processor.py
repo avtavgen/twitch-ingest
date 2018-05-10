@@ -21,13 +21,13 @@ class TwitchProcessor(object):
             try:
                 response = requests.get(url, headers=self.headers)
                 response.raise_for_status()
-                self.log.debug("Output: {}".format(str(response.json())))
+                self.log.info("Output: {}".format(str(response.json())))
                 return response.json()
             except requests.exceptions.HTTPError as e:
-                self.log.debug("{}".format(e))
+                self.log.info("{}".format(e))
                 break
             except Exception as e:
-                self.log.debug("{}: Failed to make Twitch request on try {}".format(e, retries))
+                self.log.info("{}: Failed to make Twitch request on try {}".format(e, retries))
                 retries += 1
                 if retries <= self.retry:
                     self.log.info("Trying again!")
@@ -40,12 +40,13 @@ class TwitchProcessor(object):
         while True:
             url = "{}/helix/streams?first={}".format(self.base_url, self.first)
             response = self._make_request(url, self.cursor)
-            self.log.debug("User ids response: {}".format(str(response)))
+            self.log.info("User ids response: {}".format(str(response)))
             self.cursor = response["pagination"]["cursor"]
             for stream in response["data"]:
                 self.viewer_count = stream["viewer_count"]
                 self.user_ids.append(stream["user_id"])
             if self.viewer_count < self.min_viewer_count:
+                self.log.info("Collected: {}".format(self.user_ids))
                 break
 
     def _make_user_info_request(self, user_id):
@@ -76,7 +77,7 @@ class TwitchProcessor(object):
             try:
                 user = user_info["data"][0]
             except IndexError:
-                self.log.debug("Failed to fetch user info. ID: {}".format(user_id))
+                self.log.info("Failed to fetch user info. ID: {}".format(user_id))
                 continue
             user_follows = self._get_user_follows(user_id)
             user_videos = self._get_user_videos(user["login"])
