@@ -40,7 +40,7 @@ class TwitchProcessor(object):
         while True:
             url = "{}/helix/streams?first={}".format(self.base_url, self.first)
             response = self._make_request(url, self.cursor)
-            self.log.debug("User ids response: {}".format(str(response.json())))
+            self.log.debug("User ids response: {}".format(str(response)))
             self.cursor = response["pagination"]["cursor"]
             for stream in response["data"]:
                 self.viewer_count = stream["viewer_count"]
