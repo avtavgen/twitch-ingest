@@ -21,7 +21,7 @@ class TwitchProcessor(object):
             try:
                 response = requests.get(url, headers=self.headers)
                 response.raise_for_status()
-                self.log.debug("Output: {}".format(response.json()))
+                self.log.debug("Output: {}".format(str(response.json())))
                 return response.json()
             except requests.exceptions.HTTPError as e:
                 self.log.debug("{}".format(e))
@@ -40,7 +40,7 @@ class TwitchProcessor(object):
         while True:
             url = "{}/helix/streams?first={}".format(self.base_url, self.first)
             response = self._make_request(url, self.cursor)
-            self.log.debug("User ids response: {}".format(response))
+            self.log.debug("User ids response: {}".format(str(response.json())))
             self.cursor = response["pagination"]["cursor"]
             for stream in response["data"]:
                 self.viewer_count = stream["viewer_count"]
