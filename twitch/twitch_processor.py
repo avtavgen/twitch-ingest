@@ -21,6 +21,7 @@ class TwitchProcessor(object):
             try:
                 response = requests.get(url, headers=self.headers)
                 response.raise_for_status()
+                self.log.debug("Output: {}".format(response.json()))
                 return response.json()
             except requests.exceptions.HTTPError as e:
                 self.log.debug("{}".format(e))
