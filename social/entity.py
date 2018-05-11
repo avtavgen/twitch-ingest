@@ -22,7 +22,7 @@ class SocialStatements:
             "user_id": "text",
             "name": "text",
             "views": "bigint",
-            "description": "date",
+            "description": "text",
             "url": "text",
             "followers": "int",
             "videos": "int"
