@@ -21,11 +21,11 @@ class SocialStatements:
         "columns": {
             "user_id": "text",
             "name": "text",
-            "views": "integer",
+            "views": "bigint",
             "description": "date",
             "url": "text",
-            "followers": "integer",
-            "videos": "integer"
+            "followers": "int",
+            "videos": "int"
         }
     }
 
