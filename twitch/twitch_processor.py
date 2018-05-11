@@ -5,7 +5,7 @@ from random import randint
 
 
 class TwitchProcessor(object):
-    def __init__(self, api_key, log, retry=3, min_viewer_count=20000, first=20):
+    def __init__(self, api_key, log, retry=3, min_viewer_count=60000, first=20):
         self.log = log
         self.retry = retry
         self.min_viewer_count = min_viewer_count
@@ -75,7 +75,7 @@ class TwitchProcessor(object):
             user_info = self._make_user_info_request(user_id)
             try:
                 user = user_info["data"][0]
-            except IndexError:
+            except:
                 self.log.info("Failed to fetch user info. ID: {}".format(user_id))
                 continue
             user_follows = self._get_user_follows(user_id)
