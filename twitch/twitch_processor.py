@@ -85,8 +85,8 @@ class TwitchProcessor(object):
             user_data["views"] = user["view_count"]
             user_data["description"] = user["description"]
             user_data["url"] = "{}/{}".format("https://www.twitch.tv", user["login"])
-            user_data["followers"] = user_follows["total"]
-            user_data["videos"] = user_videos
+            user_data["followers"] = user_follows["total"] if user_follows else 0
+            user_data["videos"] = user_videos if user_videos else 0
             self.log.info(user_data)
             self.info.append(user_data)
             sleep(randint(4,8))
