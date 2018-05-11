@@ -1,17 +1,18 @@
 import requests
 import sys
 from time import sleep
+from random import randint
 
 
 class TwitchProcessor(object):
-    def __init__(self, api_key, log, retry=3, min_viewer_count=100, first=100):
+    def __init__(self, api_key, log, retry=3, min_viewer_count=20000, first=20):
         self.log = log
         self.retry = retry
         self.min_viewer_count = min_viewer_count
         self.first = first
         self.cursor = None
         self.base_url = "https://api.twitch.tv"
-        self.headers = {'Client-ID': api_key}
+        self.headers = {'Client-ID': api_key, 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
     def _make_request(self, url, cursor=None):
         if cursor:
@@ -21,7 +22,6 @@ class TwitchProcessor(object):
             try:
                 response = requests.get(url, headers=self.headers)
                 response.raise_for_status()
-                self.log.info("Output: {}".format(str(response.json())))
                 return response.json()
             except requests.exceptions.HTTPError as e:
                 self.log.info("{}".format(e))
@@ -40,7 +40,6 @@ class TwitchProcessor(object):
         while True:
             url = "{}/helix/streams?first={}".format(self.base_url, self.first)
             response = self._make_request(url, self.cursor)
-            self.log.info("User ids response: {}".format(str(response)))
             self.cursor = response["pagination"]["cursor"]
             for stream in response["data"]:
                 self.viewer_count = stream["viewer_count"]
@@ -89,7 +88,7 @@ class TwitchProcessor(object):
             user_data["followers"] = user_follows["total"]
             user_data["videos"] = user_videos
             self.info.append(user_data)
-            sleep(5)
+            sleep(randint(4,8))
 
     def fetch(self):
         self.log.info('Making request to Twitch for daily streams export')
