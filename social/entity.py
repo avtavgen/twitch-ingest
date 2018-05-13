@@ -14,7 +14,7 @@ class SocialStatements:
         self.users = info
 
     user_schema = {
-        "table_name": "user_info",
+        "table_name": "twitch_user_info",
         "options": {
             "primary_key": ["user_id"],
         },
