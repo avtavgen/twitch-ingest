@@ -25,14 +25,14 @@ if __name__ == "__main__":
     else:
         cnt = 500
 
-    #ingest_log.info('Fetching user data')
-    #processor = TwitchProcessor(api_key, ingest_log, min_viewer_count=cnt).fetch()
-    #ti = SocialStatements(processor.info)
-    #ti.save(ska.engine)
-    ska.engine.create_view(
-                "temp_view",
-                    {"table": "user_info"},
-                        DataSourceType.Cassandra).result()
-    query = "SELECT * FROM temp_view"
-    data = ska.engine.query(query).result()
-    ingest_log.info(data)
+    ingest_log.info('Fetching user data')
+    processor = TwitchProcessor(api_key, ingest_log, min_viewer_count=cnt).fetch()
+    ti = SocialStatements(processor.info)
+    ti.save(ska.engine)
+    #ska.engine.create_view(
+    #            "temp_view",
+    #                {"table": "user_info"},
+    #                    DataSourceType.Cassandra).result()
+    #query = "SELECT * FROM temp_view"
+    #data = ska.engine.query(query).result()
+    #ingest_log.info(data)
