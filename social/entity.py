@@ -41,5 +41,6 @@ class SocialStatements:
     @staticmethod
     def _write_batches(engine, logger, schema, data, batch_size=40):
         for rows in batches(data, batch_size):
+            logger.info('Rows: {}'.format(rows)
             res = engine.save(schema, list(rows)).result()
-            logger.debug(res)
+            logger.info(res)
