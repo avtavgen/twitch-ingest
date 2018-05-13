@@ -31,7 +31,7 @@ if __name__ == "__main__":
     #ti.save(ska.engine)
     ska.engine.create_view(
                 "temp_view",
-                    {"keyspace": "omicron22", "table": "user_info"},
+                    {"table": "user_info"},
                         DataSourceType.Cassandra).result()
     query = "SELECT count(*) from temp_view"
     data = ska.engine.query(query).result()
