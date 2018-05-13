@@ -33,6 +33,6 @@ if __name__ == "__main__":
                 "temp_view",
                     {"table": "user_info"},
                         DataSourceType.Cassandra).result()
-    query = "SELECT count(*) from temp_view"
+    query = "SELECT * FROM temp_view"
     data = ska.engine.query(query).result()
     ingest_log.info(data)
