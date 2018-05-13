@@ -36,3 +36,4 @@ if __name__ == "__main__":
     #query = "SELECT * FROM temp_view"
     #data = ska.engine.query(query).result()
     #ingest_log.info(data)
+    #
