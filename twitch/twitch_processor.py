@@ -91,7 +91,7 @@ class TwitchProcessor(object):
             user_data["videos"] = user_videos if user_videos else 0
             self.log.info(user_data)
             self.info.append(user_data)
-            sleep(randint(5,9))
+            sleep(randint(6,9))
 
     def fetch(self):
         self.log.info('Making request to Twitch for daily streams export')
