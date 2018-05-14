@@ -72,8 +72,9 @@ class TwitchProcessor(object):
         return vod_total + br_total
 
     def _get_user_info(self):
-        user_data = dict()
+        self.info = []
         for user_id in self.user_ids:
+            user_data = dict()
             user_info = self._make_user_info_request(user_id)
             try:
                 user = user_info["data"][0]
@@ -95,7 +96,6 @@ class TwitchProcessor(object):
 
     def fetch(self):
         self.log.info('Making request to Twitch for daily streams export')
-        self.info = []
         self._get_user_ids()
         self._get_user_info()
         return self
