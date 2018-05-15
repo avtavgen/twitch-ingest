@@ -5,8 +5,9 @@ from random import randint
 
 
 class TwitchProcessor(object):
-    def __init__(self, api_key, log, retry=3, min_viewer_count=100, first=100):
+    def __init__(self, api_key, log, entity, retry=3, min_viewer_count=1000, first=100):
         self.log = log
+        self.entity = entity
         self.retry = retry
         self.min_viewer_count = min_viewer_count
         self.first = first
@@ -25,6 +26,7 @@ class TwitchProcessor(object):
                 return response.json()
             except requests.exceptions.HTTPError as e:
                 self.log.info("{}".format(e))
+                sleep(30)
                 break
             except Exception as e:
                 self.log.info("{}: Failed to make Twitch request on try {}".format(e, retries))
@@ -36,16 +38,17 @@ class TwitchProcessor(object):
                     sys.exit("Max retries reached")
 
     def _get_user_ids(self):
-        self.user_ids = []
         while True:
+            self.user_ids = []
             url = "{}/helix/streams?first={}".format(self.base_url, self.first)
             response = self._make_request(url, self.cursor)
             self.cursor = response["pagination"]["cursor"]
             for stream in response["data"]:
                 self.viewer_count = stream["viewer_count"]
                 self.user_ids.append(stream["user_id"])
+            self._get_user_info(self.user_ids)
             if self.viewer_count < self.min_viewer_count:
-                # self.log.info("Collected: {}".format(self.user_ids))
+                self.log.info("Collected: {}".format(self.user_ids))
                 break
 
     def _make_user_info_request(self, user_id):
@@ -71,9 +74,9 @@ class TwitchProcessor(object):
         br_total = broadcasts["_total"] if broadcasts["_total"] else 0
         return vod_total + br_total
 
-    def _get_user_info(self):
+    def _get_user_info(self, user_ids):
         self.info = []
-        for user_id in self.user_ids:
+        for user_id in user_ids:
             user_data = dict()
             user_info = self._make_user_info_request(user_id)
             try:
@@ -92,10 +95,10 @@ class TwitchProcessor(object):
             user_data["videos"] = user_videos if user_videos else 0
             # self.log.info(user_data)
             self.info.append(user_data)
+            self.entity.save(users=self.info)
             sleep(randint(4,10))
 
     def fetch(self):
         self.log.info('Making request to Twitch for daily streams export')
         self._get_user_ids()
-        self._get_user_info()
         return self
