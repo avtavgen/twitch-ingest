@@ -2,7 +2,7 @@ import os
 import sys
 from social.entity import SocialStatements
 from helpers.logger import get_logger
-from skafossdk import *
+# from skafossdk import *
 from twitch.twitch_processor import TwitchProcessor
 
 
@@ -26,5 +26,5 @@ if __name__ == "__main__":
         cnt = 500
 
     ingest_log.info('Fetching user data')
-    entity = SocialStatements(ska)
+    entity = SocialStatements(ingest_log, ska.engine)
     processor = TwitchProcessor(api_key, ingest_log, entity, min_viewer_count=cnt).fetch()

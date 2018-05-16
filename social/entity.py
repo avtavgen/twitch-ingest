@@ -10,9 +10,10 @@ def batches(iterable, n=10):
 
 class SocialStatements:
 
-    def __init__(self, engine):
+    def __init__(self, logger, engine):
         self.users = []
         self.engine = engine
+        self.logger = logger
 
     user_schema = {
         "table_name": "twitch_user_info",
@@ -32,13 +33,12 @@ class SocialStatements:
 
     def save(self, logging_name='social ingest', batch_size=50, users=None):
         """Write these social statements to the data engine in the appropriate manner."""
-        logger = helpers.get_logger(logging_name)
         self.users = users
         if self.users:
-            logger.info('about to send {} user statements to the data engine'.format(len(self.users)))
-            self._write_batches(self.engine.engine, logger, self.user_schema, self.users, batch_size)
+            self.logger.info('about to send {} user statements to the data engine'.format(len(self.users)))
+            self._write_batches(self.engine, self.logger, self.user_schema, self.users, batch_size)
         else:
-            logger.debug('skipping user ingest, no records in these social statements')
+            self.logger.debug('skipping user ingest, no records in these social statements')
 
     @staticmethod
     def _write_batches(engine, logger, schema, data, batch_size=40):

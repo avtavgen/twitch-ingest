@@ -5,7 +5,7 @@ from random import randint
 
 
 class TwitchProcessor(object):
-    def __init__(self, api_key, log, entity, retry=3, min_viewer_count=1000, first=100):
+    def __init__(self, api_key, log, entity, retry=3, min_viewer_count=10000, first=100):
         self.log = log
         self.entity = entity
         self.retry = retry
@@ -93,10 +93,10 @@ class TwitchProcessor(object):
             user_data["url"] = "{}/{}".format("https://www.twitch.tv", user["login"])
             user_data["followers"] = user_follows["total"] if user_follows else 0
             user_data["videos"] = user_videos if user_videos else 0
-            # self.log.info(user_data)
+            self.log.info(user_data)
             self.info.append(user_data)
-            self.entity.save(users=self.info)
             sleep(randint(4,10))
+        self.entity.save(users=self.info)
 
     def fetch(self):
         self.log.info('Making request to Twitch for daily streams export')
