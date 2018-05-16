@@ -16,7 +16,7 @@ class SocialStatements:
         self.logger = logger
 
     user_schema = {
-        "table_name": "twitch_user_info",
+        "table_name": "twitch_user_info_",
         "options": {
             "primary_key": ["user_id"],
         },
