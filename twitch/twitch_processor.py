@@ -70,8 +70,14 @@ class TwitchProcessor(object):
     def _get_user_videos(self, login):
         vod = self._make_user_vod_request(login)
         broadcasts = self._make_user_broadcasts_request(login)
-        vod_total = vod["_total"] if vod["_total"] else 0
-        br_total = broadcasts["_total"] if broadcasts["_total"] else 0
+        try:
+            vod_total = vod["_total"]
+        except:
+            vod_total = 0
+        try:
+            br_total = broadcasts["_total"]
+        except:
+            br_total = 0
         return vod_total + br_total
 
     def _get_user_info(self, user_ids):
