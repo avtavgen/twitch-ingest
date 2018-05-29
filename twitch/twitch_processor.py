@@ -5,7 +5,7 @@ from random import randint
 
 
 class TwitchProcessor(object):
-    def __init__(self, api_key, log, entity, retry=3, min_viewer_count=10000, first=100):
+    def __init__(self, api_key, log, entity, retry=3, min_viewer_count=1000, first=100):
         self.log = log
         self.entity = entity
         self.retry = retry
@@ -48,7 +48,6 @@ class TwitchProcessor(object):
                 self.user_ids.append(stream["user_id"])
             self._get_user_info(self.user_ids)
             if self.viewer_count < self.min_viewer_count:
-                self.log.info("Collected: {}".format(self.user_ids))
                 break
 
     def _make_user_info_request(self, user_id):

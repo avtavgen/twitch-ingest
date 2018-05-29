@@ -23,7 +23,7 @@ if __name__ == "__main__":
     if 'VIEW_COUNT' in os.environ:
         cnt = int(os.environ['VIEW_COUNT'])
     else:
-        cnt = 500
+        cnt = 50
 
     ingest_log.info('Fetching user data')
     entity = SocialStatements(ingest_log, ska.engine)
