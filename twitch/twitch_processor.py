@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import requests
 import sys
 from time import sleep
@@ -91,13 +93,15 @@ class TwitchProcessor(object):
                 continue
             user_follows = self._get_user_follows(user_id)
             user_videos = self._get_user_videos(user["login"])
-            user_data["user_id"] = user_id
-            user_data["name"] = user["display_name"]
-            user_data["views"] = user["view_count"]
-            user_data["description"] = user["description"]
+            user_data["uri"] = "twitch␟user␟{}".format(user_id)
+            user_data["ingested"] = False
+            user_data["screen_name"] = user["display_name"]
+            user_data["platform_income"] = user["view_count"]
+            user_data["profile"] = user["description"]
             user_data["url"] = "{}/{}".format("https://www.twitch.tv", user["login"])
             user_data["followers"] = user_follows["total"] if user_follows else 0
-            user_data["videos"] = user_videos if user_videos else 0
+            user_data["post_count"] = user_videos if user_videos else 0
+            user_data["date"] = datetime.now().strftime("%Y-%m-%d")
             self.log.info(user_data)
             self.info.append(user_data)
             sleep(randint(4,10))

@@ -10,24 +10,35 @@ def batches(iterable, n=10):
 
 class SocialStatements:
 
-    def __init__(self, logger, engine):
+    def __init__(self, logger, engine=None):
         self.users = []
         self.engine = engine
         self.logger = logger
 
     user_schema = {
-        "table_name": "twitch_user_info_",
+        "table_name": "user",
         "options": {
-            "primary_key": ["user_id"],
+            "primary_key": ["uri", "date"],
+            "order_by": ["date desc"]
         },
         "columns": {
-            "user_id": "text",
-            "name": "text",
-            "views": "bigint",
-            "description": "text",
+            "uri": "text",
+            "screen_name": "text",
+            "full_name": "text",
+            "is_private": "boolean",
+            "is_verified": "boolean",
+            "profile": "text",
+            "following": "int",
+            "followers": "bigint",
+            "categories": "set<text>",
             "url": "text",
-            "followers": "int",
-            "videos": "int"
+            "lang": "text",
+            "location": "text",
+            "post_count": "int",
+            "platform_income": "bigint",
+            "date": "date",
+            "last_fetch_id": "text",
+            "ingested": "boolean"
         }
     }
 
