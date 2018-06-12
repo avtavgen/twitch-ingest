@@ -18,7 +18,7 @@ if __name__ == "__main__":
     else:
         ingest_log.info('Setting up api key')
         api_key = 'rzyu2ma6hklfiw6i1yjvq0oiqhop0v'
-        # sys.exit('Please save a Twitch api key in your environment.')
+        # sys.exit('Please save a Twitch api key in your environment. ')
 
     if 'VIEW_COUNT' in os.environ:
         cnt = int(os.environ['VIEW_COUNT'])
