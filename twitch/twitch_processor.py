@@ -85,6 +85,7 @@ class TwitchProcessor(object):
         self.info = []
         for user_id in user_ids:
             user_data = dict()
+            img_urls = []
             user_info = self._make_user_info_request(user_id)
             try:
                 user = user_info["data"][0]
@@ -102,6 +103,11 @@ class TwitchProcessor(object):
             user_data["followers"] = user_follows["total"] if user_follows else 0
             user_data["post_count"] = user_videos if user_videos else 0
             user_data["date"] = datetime.now().strftime("%Y-%m-%d")
+            img_profile = user["profile_image_url"]
+            img_urls.append(img_profile)
+            img_offline = user["offline_image_url"]
+            img_urls.append(img_offline)
+            user_data["img_urls"] = img_urls
             self.log.info(user_data)
             self.info.append(user_data)
             sleep(randint(4,10))

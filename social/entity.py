@@ -38,7 +38,8 @@ class SocialStatements:
             "platform_income": "bigint",
             "date": "date",
             "last_fetch_id": "text",
-            "ingested": "boolean"
+            "ingested": "boolean",
+            "img_urls": "set<text>"
         }
     }
 

@@ -26,5 +26,5 @@ if __name__ == "__main__":
         cnt = 50
 
     ingest_log.info('Fetching user data')
-    entity = SocialStatements(ingest_log, ska.engine) # , ska.engine
+    entity = SocialStatements(ingest_log, ska.engine) #, ska.engine
     processor = TwitchProcessor(api_key, ingest_log, entity, min_viewer_count=cnt).fetch()
