@@ -44,7 +44,7 @@ class SocialStatements:
     }
 
     def save(self, logging_name='social ingest', batch_size=50, users=None):
-        """Write these social statements to the data engine in the appropriate manner. """
+        """Write these social statements to the data engine in the appropriate manner."""
         self.users = users
         if self.users:
             self.logger.info('about to send {} user statements to the data engine'.format(len(self.users)))
